@@ -11,7 +11,14 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        tertiary: "var(--tertiary)",
+        cardColor: "var(--cardColor)",
       },
+      borderRadius: {
+        '50px': '50px'
+      }
     },
   },
   plugins: [],

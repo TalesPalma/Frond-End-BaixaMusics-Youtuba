@@ -1,0 +1,8 @@
+.menu {
+  @apply bg-foreground text-primary justify-center gap-10 p-2 w-full flex rounded-md shadow-lg shadow-black;
+}
+
+.menu .menu-item {
+  @apply bg-secondary rounded-md text-lg p-2 no-underline hover:bg-tertiary shadow-md shadow-black;
+  ;
+}

@@ -2,26 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  --background: #52484A;
+  --foreground: #FA2F5F;
+  --primary: #fff;
+  --secondary: #3DBA50;
+  --tertiary: #A5445B;
+  --cardColor: rgb(223, 225, 235);
 }
