@@ -1,23 +1,19 @@
 import ItemCard from "./itemCard/itemCard"
 import "./style.css"
 
-type CardListProps = {
 
+
+
+type CardListProps = {
+  listMusics: string[]
 }
 
-const CardList: React.FC<CardListProps> = () => {
-  const listaDonwload = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "7",
-    "8",
-  ]
+
+const CardList: React.FC<CardListProps> = ({ listMusics }) => {
   return (
     <div className='card'>
       <div>
-        {listaDonwload.map(item => { return <ItemCard children={item} /> })}
+        {listMusics.map(item => { return <ItemCard children={item} /> })}
       </div>
     </div>
   )
