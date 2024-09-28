@@ -46,7 +46,6 @@ const InputUrl: React.FC<InputUrlProps> = ({ children }: InputUrlProps) => {
 
   return (
     <div className="m-4">
-
       <input
         type="url"
         placeholder={children?.toString()}
@@ -57,7 +56,6 @@ const InputUrl: React.FC<InputUrlProps> = ({ children }: InputUrlProps) => {
         className="p-3.5 bg-secondary rounded w-6/12 mt-5 shadow-lg shadow-black"
         onClick={handleDonwload}
       > Baixar</button>
-
     </div >
   )
 }

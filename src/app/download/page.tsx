@@ -1,19 +1,19 @@
 'use client'
 import CardList from "@/components/cardList/CardList";
-import Link from "next/link";
+import { Music } from "@/models/music";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 
 
 
-async function getAllMusics(link: string): Promise<string[]> {
+async function getAllMusics(): Promise<Music[]> {
+  const link = "http://localhost:8080/musics"
   try {
     const response = await fetch(link, {
       method: 'GET',
+      cache: 'no-store',
     })
-    const list = await response.json()
-
+    const list: Music[] = await response.json()
     if (!list) {
       return []
     }
@@ -27,35 +27,8 @@ async function getAllMusics(link: string): Promise<string[]> {
 
 export default async function DownloadPage() {
   const searchParams = useSearchParams()
+  const musics: Music[] = await getAllMusics()
   const link = searchParams.get('link')
-  const [musics, setMusics] = useState<string[]>([]);
-
-
-
-
-
-  if (!validingLink(link) || link == null) {
-    return (
-      <div className='text-secondary text-center flex  items-center justify-center flex-col '>
-        <h1 className="text-xl text-red-500 bg-red-200 rounded p-50 w-4/5 font-bold">Nenhum donwload</h1>
-        <Link href={'/'} className="text-sky-400 font-bold text-xl underline">Voltar</Link>
-      </div >
-    )
-  }
-
-  useEffect(() => {
-    const fetchMusics = async () => {
-      const newMusics = await getAllMusics(link);
-      setMusics(newMusics);
-    }
-
-    if (validingLink(link) && link != null) {
-      fetchMusics(); // Chama a função para buscar músicas
-    }
-
-  }, [link])
-
-
 
   return (
     <div className='text-secondary text-center flex flex-col items-center justify-center '>
@@ -63,6 +36,7 @@ export default async function DownloadPage() {
       <CardList listMusics={musics} />
     </div >
   )
+
 }
 
 function validingLink(link: string | null | undefined): boolean {
