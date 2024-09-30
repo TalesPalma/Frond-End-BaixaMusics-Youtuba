@@ -1,0 +1,7 @@
+.btn-groups {
+  @apply flex-row items-center justify-center;
+
+  button {
+    @apply bg-secondary text-white rounded p-2 m-2;
+  }
+}

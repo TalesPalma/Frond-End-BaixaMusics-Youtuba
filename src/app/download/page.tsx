@@ -1,8 +1,10 @@
 'use client'
+import "./style.css"
 import CardList from "@/components/cardList/CardList";
 import { Music } from "@/models/music";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
 
 
 
@@ -67,6 +69,10 @@ export default function DownloadPage() {
     <div className='text-secondary text-center flex flex-col items-center justify-center '>
       <h1>{link}</h1>
       <CardList listMusics={initMusics} />
+      <div className="btn-groups">
+        <button>Baixar Todas</button>
+        <button>Clear List</button>
+      </div>
     </div >
   )
 }
