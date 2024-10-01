@@ -27,6 +27,42 @@ async function getAllMusics(): Promise<Music[]> {
   }
 }
 
+async function downloadAllMusics(listMusics: Music[]) {
+  const link = "http://localhost:8080/download/"
+
+  for (const item of listMusics) {
+    await fetch(link + encodeURIComponent(item.title))
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url;
+        a.download = item.title;
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+      }).catch(error => console.error(error));
+  }
+}
+
+function clearList() {
+  const socket = new WebSocket("ws://localhost:8080/ws")
+  socket.onopen = () => {
+    socket.send("clear")
+
+  }
+
+  socket.onclose = (event) => {
+    console.log(event)
+  }
+
+  socket.onerror = (event) => {
+    console.log(event)
+  }
+
+
+}
+
 
 export default function DownloadPage() {
   const searchParams = useSearchParams()
@@ -34,10 +70,10 @@ export default function DownloadPage() {
 
 
 
-  const [initMusics, setInitMusics] = useState<Music[]>([])
+  const [musics, setMusics] = useState<Music[]>([])
   const fetchMusics = async () => {
     const musics: Music[] = await getAllMusics()
-    setInitMusics(musics)
+    setMusics(musics)
   }
 
 
@@ -49,7 +85,7 @@ export default function DownloadPage() {
     socket.onmessage = (event) => {
       const updateMusics = JSON.parse(event.data)
       console.log(updateMusics)
-      setInitMusics((prev) => [...prev, ...updateMusics])
+      setMusics((prev) => [...prev, ...updateMusics])
     }
 
     socket.onerror = (event) => {
@@ -68,10 +104,10 @@ export default function DownloadPage() {
   return (
     <div className='text-secondary text-center flex flex-col items-center justify-center '>
       <h1>{link}</h1>
-      <CardList listMusics={initMusics} />
+      <CardList listMusics={musics} />
       <div className="btn-groups">
-        <button>Baixar Todas</button>
-        <button>Clear List</button>
+        <button onClick={() => downloadAllMusics(musics)}>Baixar Todas</button>
+        <button onClick={clearList}>Clear List</button>
       </div>
     </div >
   )
